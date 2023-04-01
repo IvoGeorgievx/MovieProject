@@ -2,10 +2,13 @@ from flask import request
 from flask_restful import Resource
 
 from managers.auth import AuthManager
+from schemas.request.users import UserRegisterSchemaIn, UserLoginSchema
 from schemas.response.users import UserResponseSchema
+from utilities.decorators import validate_schema
 
 
 class Register(Resource):
+    @validate_schema(UserRegisterSchemaIn)
     def post(self):
         data = request.get_json()
         user = AuthManager.register(data)
@@ -14,6 +17,7 @@ class Register(Resource):
 
 
 class Login(Resource):
+    @validate_schema(UserLoginSchema)
     def post(self):
         data = request.get_json()
         user = AuthManager.login(data)

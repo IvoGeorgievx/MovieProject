@@ -40,7 +40,7 @@ class AuthManager:
     @staticmethod
     def decode_token(token):
         try:
-            jwt.decode(token, key=config("JWT_SECRET_KEY"), algorithms=['HS256'])
+            return jwt.decode(token, key=config("JWT_SECRET_KEY"), algorithms=['HS256'])
         except Exception as ex:
             raise BadRequest("Invalid or missing JWT token")
 
@@ -48,10 +48,11 @@ class AuthManager:
 auth = HTTPTokenAuth(scheme='Bearer')
 
 
+@auth.verify_token
 def verify_token(token):
     try:
         payload = AuthManager.decode_token(token)
-        user = User.query.filtry_by(id=payload['sub']).first()
+        user = User.query.filter_by(id=payload['sub']).first()
         if not user:
             raise Unauthorized("Invalid or missing JWT token")
         return user
