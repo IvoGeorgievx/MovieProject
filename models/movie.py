@@ -10,5 +10,7 @@ class Movie(db.Model):
     description = db.Column(db.String, nullable=False)
     hall_id = db.Column(db.Integer, db.ForeignKey('hall.id'), nullable=False)
     hall = db.relationship('Hall')
+    ticket_price = db.Column(db.Float, nullable=False)
+
 
 
