@@ -8,6 +8,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 from db import db
 from models import User
+from services.stripe_service import StripeService
 
 
 class AuthManager:
@@ -15,6 +16,8 @@ class AuthManager:
     @staticmethod
     def register(data):
         data['password'] = generate_password_hash(data['password'], method='sha256')
+        if not data['stripe_account']:
+            data['stripe_account'] = StripeService.create_stripe_account(data)
         user = User(**data)
         db.session.add(user)
         db.session.commit()

@@ -10,8 +10,7 @@ class UserRegisterSchemaIn(BaseUserSchema):
                                validate=validate.And(validate.Length(min=3, max=20), name_validator))
     last_name = fields.String(required=True,
                               validate=validate.And(validate.Length(min=3, max=20), name_validator))
-    card_number = fields.Integer(required=True)
-    # TODO: add validator for card_number
+    stripe_account = fields.String(required=False)
 
 
 class UserLoginSchema(BaseUserSchema):
