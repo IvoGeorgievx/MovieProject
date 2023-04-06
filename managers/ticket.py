@@ -17,9 +17,14 @@ class TicketManager:
         return movie.ticket_price
 
     @staticmethod
-    def confirmed_payment(ticket):
+    def confirm_payment(ticket):
         ticket = Ticket.query.filter_by(id=ticket.id).first()
         ticket.is_paid = True
         db.session.commit()
         return ticket
+
+    @staticmethod
+    def get_user_tickets(user):
+        tickets = Ticket.query.filter_by(user_id=user.id).all()
+        return tickets
 

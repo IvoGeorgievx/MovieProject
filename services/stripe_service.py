@@ -10,7 +10,7 @@ class StripeService:
     @staticmethod
     def create_stripe_account(user):
         account = stripe.Customer.create(
-            balance=2000000,
+            balance=20000,
             name=f'{user["first_name"]} {user["last_name"]}',
             email=user['email'],
         )
@@ -20,7 +20,6 @@ class StripeService:
     def purchase_ticket(ticket, user):
         customer = stripe.Customer.retrieve(user.stripe_account)
 
-        # Check if the customer has enough funds
         if customer.balance < int(ticket.ticket_price * 100):
             raise Unauthorized("Insufficient funds")
 

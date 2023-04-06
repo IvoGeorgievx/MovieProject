@@ -9,7 +9,7 @@ from services.stripe_service import StripeService
 from utilities.decorators import validate_schema
 
 
-class Ticket(Resource):
+class TicketPurchase(Resource):
     @auth.login_required
     @validate_schema(TicketSchemaIn)
     def post(self):
@@ -20,8 +20,16 @@ class Ticket(Resource):
         ticket = TicketManager.create_ticket(data)
         purchase_ticket = StripeService.purchase_ticket(ticket, current_user)
         if purchase_ticket:
-            TicketManager.confirmed_payment(ticket)
+            TicketManager.confirm_payment(ticket)
         return {
             "ticket": TicketSchemaOut().dump(ticket),
-            "purchase_ticket": purchase_ticket
+            "barcode": purchase_ticket
         }
+
+
+class UserTickets(Resource):
+    @auth.login_required
+    def get(self):
+        user = auth.current_user()
+        tickets = TicketManager.get_user_tickets(user)
+        return {"tickets": TicketSchemaOut(many=True).dump(tickets)}
