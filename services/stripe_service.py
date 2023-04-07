@@ -6,11 +6,13 @@ stripe.api_key = config("STRIPE_SECRET_KEY")
 
 
 class StripeService:
+    STARTING_BALANCE = 20000
+    ST_TO_LEV = 100
 
     @staticmethod
     def create_stripe_account(user):
         account = stripe.Customer.create(
-            balance=20000,
+            balance=StripeService.STARTING_BALANCE,
             name=f'{user["first_name"]} {user["last_name"]}',
             email=user['email'],
         )
@@ -20,11 +22,11 @@ class StripeService:
     def purchase_ticket(ticket, user):
         customer = stripe.Customer.retrieve(user.stripe_account)
 
-        if customer.balance < int(ticket.ticket_price * 100):
+        if customer.balance < int(ticket.ticket_price * StripeService.ST_TO_LEV):
             raise Unauthorized("Insufficient funds")
 
         price = stripe.Price.create(
-            unit_amount=int(ticket.ticket_price * 100),
+            unit_amount=int(ticket.ticket_price * StripeService.ST_TO_LEV),
             currency="bgn",
             product="ticket"
         )
@@ -39,7 +41,7 @@ class StripeService:
 
         stripe.Customer.modify(
             user.stripe_account,
-            balance=customer.balance - int(ticket.ticket_price * 100)
+            balance=customer.balance - int(ticket.ticket_price * StripeService.ST_TO_LEV)
         )
 
         return payment_intent.id

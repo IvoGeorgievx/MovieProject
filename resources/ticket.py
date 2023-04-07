@@ -3,6 +3,7 @@ from flask_restful import Resource
 
 from managers.auth import auth
 from managers.ticket import TicketManager
+from managers.transaction import TransactionManager
 from schemas.request.ticket import TicketSchemaIn
 from schemas.response.ticket import TicketSchemaOut
 from services.stripe_service import StripeService
@@ -21,6 +22,7 @@ class TicketPurchase(Resource):
         purchase_ticket = StripeService.purchase_ticket(ticket, current_user)
         if purchase_ticket:
             TicketManager.confirm_payment(ticket)
+            TransactionManager.create_transaction(ticket, purchase_ticket, current_user)
         return {
             "ticket": TicketSchemaOut().dump(ticket),
             "barcode": purchase_ticket
