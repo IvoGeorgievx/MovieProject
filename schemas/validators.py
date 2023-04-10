@@ -2,7 +2,7 @@ import re
 
 from marshmallow import ValidationError
 
-from models import User
+from models import User, Hall
 
 
 class UserValidator:
@@ -48,3 +48,11 @@ class MovieValidator:
     def rating_validator(value):
         if not 0 <= value <= 5:
             raise ValidationError("Movie rating must be between 0 and 5 inclusive")
+
+
+class HallValidator:
+    @staticmethod
+    def hall_id_validator(value):
+        hall = Hall.query.filter_by(id=value).first()
+        if not hall:
+            raise ValidationError("Hall with that ID does not exist.")

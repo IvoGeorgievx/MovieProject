@@ -1,6 +1,6 @@
 from marshmallow import Schema, fields
 
-from schemas.validators import MovieValidator
+from schemas.validators import MovieValidator, HallValidator
 
 
 class BaseMovieSchema(Schema):
@@ -8,5 +8,7 @@ class BaseMovieSchema(Schema):
     rating = fields.Float(required=True, validate=MovieValidator.rating_validator)
     description = fields.String(required=True)
     ticket_price = fields.Float(required=True, validate=MovieValidator.ticket_price_validator)
-    hall_id = fields.Integer(required=True)
+    hall_id = fields.Integer(required=True, validate=HallValidator.hall_id_validator)
+    start_time = fields.DateTime(required=True)
+    end_time = fields.DateTime(required=True)
 

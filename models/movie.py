@@ -11,6 +11,8 @@ class Movie(db.Model):
     hall_id = db.Column(db.Integer, db.ForeignKey('hall.id'), nullable=False)
     hall = db.relationship('Hall')
     ticket_price = db.Column(db.Float, nullable=False)
+    start_time = db.Column(db.DateTime, nullable=False)
+    end_time = db.Column(db.DateTime, nullable=False)
 
 
 
