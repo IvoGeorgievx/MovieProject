@@ -18,15 +18,17 @@ class TicketPurchase(Resource):
         current_user = auth.current_user()
         data['user_id'] = current_user.id
         data['ticket_price'] = TicketManager.set_ticket_price(data['movie_id'])
+        TicketManager.check_for_available_tickets(data['movie_id'])
         ticket = TicketManager.create_ticket(data)
         purchase_ticket = StripeService.purchase_ticket(ticket, current_user)
         if purchase_ticket:
             TicketManager.confirm_payment(ticket)
             TransactionManager.create_transaction(ticket, purchase_ticket, current_user)
+            TicketManager.set_new_ticket_count(data['movie_id'])
         return {
             "ticket": TicketSchemaOut().dump(ticket),
             "barcode": purchase_ticket
-        }
+        }, 201
 
 
 class UserTickets(Resource):

@@ -13,7 +13,7 @@ class Register(Resource):
         data = request.get_json()
         user = AuthManager.register(data)
         token = AuthManager.encode_token(user)
-        return UserResponseSchema().dump({"token": token})
+        return UserResponseSchema().dump({"token": token}), 201
 
 
 class Login(Resource):
@@ -22,4 +22,4 @@ class Login(Resource):
         data = request.get_json()
         user = AuthManager.login(data)
         token = AuthManager.encode_token(user)
-        return UserResponseSchema().dump({"token": token})
+        return UserResponseSchema().dump({"token": token}), 200

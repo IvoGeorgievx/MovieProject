@@ -19,6 +19,8 @@ class HallManager:
 
     @staticmethod
     def check_hall_availability(start_time, end_time, hall_id):
+        if end_time <= start_time:
+            raise BadRequest("End time must be greater than start time")
         current_movies = HallAvailability.query.filter(
             HallAvailability.start_time <= end_time,
             HallAvailability.end_time >= start_time,
@@ -32,8 +34,7 @@ class HallManager:
         hall = Hall.query.filter_by(id=hall_id).first()
         if hall.capacity > 0:
             hall.capacity -= 1
-            # TODO: Finish logic about this, make movies screen at exact time,
-            #  then check capacity, when movie ends, restore default capacity
+            # TODO: Finish logic about this capacity
 
     @staticmethod
     def set_hall_occupancy(start_time, end_time, hall_id):
@@ -44,3 +45,6 @@ class HallManager:
         db.session.add(occupancy)
         db.session.commit()
         return occupancy
+
+
+

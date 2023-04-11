@@ -16,4 +16,4 @@ class Hall(Resource):
     def post(self):
         data = request.get_json()
         hall = HallManager.create_hall(data)
-        return HallSchemaOut().dump(hall)
+        return HallSchemaOut().dump(hall), 201
