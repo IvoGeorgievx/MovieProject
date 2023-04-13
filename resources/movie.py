@@ -7,7 +7,8 @@ from managers.movie import MovieManager
 from managers.ticket import TicketManager
 from models import UserRole, Movie
 from schemas.request.movie import MovieSchemaIn, MovieUpdateSchemaIn
-from schemas.response.movie import MovieSchemaOut
+from schemas.response.movie import MovieSchemaOut, TMDBSearchSchemaOut, TMDBUpcomingSchemaOut
+from services.tmdb import TMDBService
 from utilities.decorators import permission_required, validate_schema
 
 
@@ -25,6 +26,14 @@ class CreateMovie(Resource):
         return MovieSchemaOut().dump(movie), 201
 
 
+class SearchMovie(Resource):
+    def get(self, query):
+        tmdb_service = TMDBService()
+        movie_id = tmdb_service.get_movie_id(query)
+        info = tmdb_service.get_movie_details(movie_id)
+        return TMDBSearchSchemaOut().dump(info), 200
+
+
 class UpdateMovie(Resource):
     @auth.login_required
     @permission_required(UserRole.admin)
@@ -39,7 +48,7 @@ class UpdateMovie(Resource):
 class BrowseMovies(Resource):
     def get(self):
         movies = Movie.query.filter_by().all()
-        return {"movies": MovieSchemaOut(many=True).dump(movies)}, 200
+        return MovieSchemaOut(many=True).dump(movies), 200
 
 
 class DeleteMovie(Resource):
@@ -50,3 +59,10 @@ class DeleteMovie(Resource):
         HallManager.remove_hall_occupancy(movie.id)
         MovieManager.delete_movie(movie.id)
         return None, 204
+
+
+class UpcomingMovies(Resource):
+    def get(self):
+        tmdb_service = TMDBService()
+        result = tmdb_service.get_upcoming_movies()
+        return TMDBUpcomingSchemaOut().dump(result), 200

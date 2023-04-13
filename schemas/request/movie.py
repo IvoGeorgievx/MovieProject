@@ -14,6 +14,5 @@ class MovieUpdateSchemaIn(BaseMovieSchema):
     description = fields.String(required=False)
     ticket_price = fields.Float(required=False, validate=MovieValidator.ticket_price_validator)
     hall_id = fields.Integer(required=False, validate=HallValidator.hall_id_validator)
-    # ticket_count = fields.Integer(required=False)
     start_time = fields.DateTime(required=False)
     end_time = fields.DateTime(required=False)
