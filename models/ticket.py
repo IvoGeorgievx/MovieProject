@@ -8,7 +8,7 @@ class Ticket(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     user = db.relationship('User')
     movie_id = db.Column(db.Integer, db.ForeignKey('movie.id'), nullable=False)
-    movie = db.relationship('Movie')
+    movie = db.relationship('Movie', cascade='all,delete')
     ticket_price = db.Column(db.Float, nullable=False)
     is_paid = db.Column(db.Boolean, default=False, nullable=False)
 

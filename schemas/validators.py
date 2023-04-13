@@ -46,7 +46,7 @@ class MovieValidator:
 
     @staticmethod
     def rating_validator(value):
-        if not 0 <= value <= 5:
+        if not 0 <= value <= 10:
             raise ValidationError("Movie rating must be between 0 and 5 inclusive")
 
 

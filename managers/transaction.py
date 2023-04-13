@@ -5,10 +5,10 @@ from models import Transaction
 class TransactionManager:
 
     @staticmethod
-    def create_transaction(ticket, transaction, user):
+    def create_transaction(ticket, payment, user):
         transaction = Transaction(
             ticket_id=ticket.id,
-            payment_id=transaction,
+            payment_id=payment,
             user_id=user.id
         )
         db.session.add(transaction)

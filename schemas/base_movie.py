@@ -9,7 +9,7 @@ class BaseMovieSchema(Schema):
     description = fields.String(required=True)
     ticket_price = fields.Float(required=True, validate=MovieValidator.ticket_price_validator)
     hall_id = fields.Integer(required=True, validate=HallValidator.hall_id_validator)
-    ticket_count = fields.Integer(required=False)
+    # ticket_count = fields.Integer(required=False)
     start_time = fields.DateTime(required=True)
     end_time = fields.DateTime(required=True)
 
