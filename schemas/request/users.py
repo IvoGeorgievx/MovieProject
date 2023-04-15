@@ -8,7 +8,6 @@ class UserRegisterSchemaIn(BaseUserSchema):
     username = fields.String(required=True,
                              validate=validate.And(validate.Length(min=5, max=20), UserValidator.username_validator,
                                                    UserValidator.unique_username_validator))
-    password = fields.String(required=True, validate=validate.Length(min=5))
     email = fields.String(required=True, validate=validate.And(UserValidator.email_validator,
                                                                UserValidator.unique_email_validator))
     first_name = fields.String(required=True,
