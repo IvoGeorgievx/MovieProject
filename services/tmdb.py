@@ -32,9 +32,3 @@ class TMDBService:
         response = requests.get(url)
         return response.json()
 
-
-if __name__ == '__main__':
-    service = TMDBService()
-    print(service.get_movie_id("Gladiator"))
-    # print(service.get_upcoming_movies())
-    print(service.get_movie_details(98))
