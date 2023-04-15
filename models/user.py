@@ -13,9 +13,5 @@ class User(db.Model):
     last_name = db.Column(db.String, nullable=False)
     email = db.Column(db.String(50), nullable=False, unique=True)
     role = db.Column(db.Enum(UserRole), default=UserRole.regular, nullable=False)
-
-    # if the customer have a stripe account, to fill up the field, if not
-    # a new account will be created via the api with the provided information
-
-    stripe_account = db.Column(db.String, nullable=True)
+    stripe_account = db.Column(db.String, nullable=False)
     tickets = db.relationship('Ticket', back_populates='user')

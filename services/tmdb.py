@@ -23,7 +23,6 @@ class TMDBService:
             raise BadRequest("There is no such movie in our database.")
 
     def get_movie_details(self, movie_id):
-
         url = self.url + f'/movie/{movie_id}?api_key={config("TMDB_KEY")}&language=en-US'
         response = requests.get(url)
         return response.json()
