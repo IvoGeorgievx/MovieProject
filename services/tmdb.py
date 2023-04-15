@@ -32,4 +32,3 @@ class TMDBService:
         response = requests.get(url)
         return response.json()
 
-
