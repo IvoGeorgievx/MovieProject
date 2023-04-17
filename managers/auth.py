@@ -60,4 +60,4 @@ def verify_token(token):
             raise Unauthorized("Invalid or missing JWT token")
         return user
     except Exception as ex:
-        raise BadRequest("Invalid or missing JWT token")
+        raise Unauthorized("Invalid or missing JWT token")
