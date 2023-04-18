@@ -66,3 +66,6 @@ class UpcomingMovies(Resource):
         tmdb_service = TMDBService()
         result = tmdb_service.get_upcoming_movies()
         return TMDBUpcomingSchemaOut().dump(result), 200
+
+
+

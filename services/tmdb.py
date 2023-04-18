@@ -31,4 +31,3 @@ class TMDBService:
         url = self.url + f'/movie/upcoming?api_key={config("TMDB_KEY")}&language=en-US&page=1'
         response = requests.get(url)
         return response.json()
-

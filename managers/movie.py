@@ -1,4 +1,4 @@
-from werkzeug.exceptions import BadRequest
+from werkzeug.exceptions import BadRequest, NotFound
 
 from db import db
 from models import Movie
@@ -17,7 +17,7 @@ class MovieManager:
     def get_movie(pk):
         movie = Movie.query.filter_by(id=pk).first()
         if not movie:
-            raise BadRequest('Movie not found')
+            raise NotFound('Movie not found')
         return movie
 
     @staticmethod

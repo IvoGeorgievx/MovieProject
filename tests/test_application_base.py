@@ -1,6 +1,6 @@
 from models import UserRole
 from tests.base import TestRESTAPIBase, generate_token
-from tests.user_factory import UserFactory
+from tests.factories import UserFactory
 
 
 class TestLoginAndPermissionRequired(TestRESTAPIBase):

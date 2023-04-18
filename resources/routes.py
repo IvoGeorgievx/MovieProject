@@ -14,5 +14,6 @@ routes = (
     (BrowseMovies, '/browse-movies'),
     (DeleteMovie, '/delete-movie/<int:pk>'),
     (UpcomingMovies, '/upcoming-movies'),
-    (SearchMovie, '/search-movie/<string:query>')
+    (SearchMovie, '/search-movie/<string:query>'),
+
 )
