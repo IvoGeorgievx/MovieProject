@@ -2,9 +2,9 @@ name: Python Movie_project
 
 on:
   push:
-    branches: [main]
+    branches: [master]
   pull_request:
-    branches: [main]
+    branches: [master]
 
 jobs:
   build:
@@ -14,8 +14,8 @@ jobs:
       postgres:
         image: postgres:13.3
         env:
-          POSTGRES_USER: ${{ secrets.DB_USER }}
-          POSTGRES_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          POSTGRES_USER: postgres-user
+          POSTGRES_PASSWORD: password
           POSTGRES_DB: movies_db
         ports:
           - 5432:5432
@@ -24,7 +24,6 @@ jobs:
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
-
     steps:
       - uses: actions/checkout@v2
 
@@ -38,16 +37,18 @@ jobs:
 
       - name: Run tests
         env:
-          DB_USER: ${{ secrets.DB_USER }}
-          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-          DB_PORT: '5432'
-          DB_NAME: ${{ secrets.DB_NAME }}
-          SECRET_KEY: ${{ secrets.SECRET_KEY }}
-          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
-          POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+          DB_USER: postgres-user
+          DB_PASSWORD: password
+          DB_PORT: 5432
+          DB_NAME: movies_db
+          POSTGRES_PASSWORD: password
+          POSTGRES_USER: postgres-user
           POSTGRES_DB: movies_db
-          TMDB_KEY: ${{ secrets.TMDB_KEY }}
-          JWT_SECRET_KEY: ${{ secrets.JWT_SECRET_KEY }}
+          DB_TEST_NAME: movies_db
+          TMDB_KEY: 113606006bba3467154a83eb5194041d
+          JWT_SECRET_KEY: very_secret_key
+          STRIPE_PUBLISHABLE_KEY: pk_test_51Mo10OLxpgwdPzeJyLdYRi9ByqJbH2SemszlyObSETEdDytlcYyr6TcwyOhGyVAoSETklRqvnBb6hjeO5WfuygTv00o0YpevAp
+          STRIPE_SECRET_KEY: sk_test_51Mo10OLxpgwdPzeJGERqLV7roUcxNxHuqBQTRgHYm8Wb9HCy0n4mGabwKxKmbkjRTbIPV5hqvbCeHsBcGhMH3eT7003UzJHaEz
         run: |
-          export PGPASSWORD="${{ secrets.POSTGRES_PASSWORD }}"
+          export PGPASSWORD="password"
           pytest
