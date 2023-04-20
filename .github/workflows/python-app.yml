@@ -1,0 +1,54 @@
+name: Python Movie_project
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:13.3
+        env:
+          POSTGRES_USER: postgres-user
+          POSTGRES_PASSWORD: password
+          POSTGRES_DB: movies_db
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Python 3.7
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.7"
+
+      - name: Install dependencies
+        run: pip install --upgrade pip && pip install -r requirements.txt
+
+      - name: Run tests
+        env:
+          DB_USER: postgres-user
+          DB_PASSWORD: password
+          DB_PORT: 5432
+          DB_NAME: movies_db
+          POSTGRES_PASSWORD: password
+          POSTGRES_USER: postgres-user
+          POSTGRES_DB: movies_db
+          DB_TEST_NAME: movies_db
+          TMDB_KEY: 113606006bba3467154a83eb5194041d
+          JWT_SECRET_KEY: very_secret_key
+          STRIPE_PUBLISHABLE_KEY: pk_test_51Mo10OLxpgwdPzeJyLdYRi9ByqJbH2SemszlyObSETEdDytlcYyr6TcwyOhGyVAoSETklRqvnBb6hjeO5WfuygTv00o0YpevAp
+          STRIPE_SECRET_KEY: sk_test_51Mo10OLxpgwdPzeJGERqLV7roUcxNxHuqBQTRgHYm8Wb9HCy0n4mGabwKxKmbkjRTbIPV5hqvbCeHsBcGhMH3eT7003UzJHaEz
+        run: |
+          export PGPASSWORD="password"
+          pytest
