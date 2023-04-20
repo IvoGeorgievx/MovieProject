@@ -1,9 +1,7 @@
-from datetime import timedelta
-
 import factory
 
 from db import db
-from models import User, UserRole, Movie
+from models import User, UserRole
 
 
 class BaseFactory(factory.Factory):

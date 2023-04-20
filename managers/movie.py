@@ -1,4 +1,4 @@
-from werkzeug.exceptions import BadRequest, NotFound
+from werkzeug.exceptions import NotFound
 
 from db import db
 from models import Movie
