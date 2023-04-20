@@ -1,0 +1,338 @@
+{
+	"info": {
+		"_postman_id": "a775f35c-d9a2-49ee-a79e-f349cd4e54f5",
+		"name": "Movies_Project",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24908171"
+	},
+	"item": [
+		{
+			"name": "Register",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"YOUR_USERNAME\",\r\n    \"password\": \"YOUR_PASSWORD\",\r\n    \"first_name\": \"FIRST_NAME\",\r\n    \"last_name\": \"LAST_NAME\",\r\n    \"email\": \"EMAIL\",\r\n    \"stripe_account\":\"\"\r\n    \r\n}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/register",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"YOUR_USERNAME\",\r\n    \"PASSWORD\": \"YOUR_PASSWORD\"\r\n}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/login",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Hall",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer YOUR TOKEN",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"capacity\": WRITE NUMBER HERE\r\n}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/create-hall",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"create-hall"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Movie",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer YOUR TOKEN",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"MOVIE_NAME\",\r\n    \"rating\": RATING,\r\n    \"description\": \"MOVIE_DESCRIPTION\",\r\n    \"hall_id\": VALID_HALL_ID,\r\n    \"ticket_price\": WRITE_YOUR_TEST_PRICE\r\n}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/create-movie",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"create-movie"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Movie",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer YOUR TOKEN",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"UPDATED_MOVIE_NAME(WRITE THE FIELDS YOU WANT TO UPDATE BELOW, example 'rating': 9.7)\"\r\n}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/update-movie/ID_OF_THE_MOVIE_YOU_WANT_TO_UPDATE",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"update-movie",
+						"26"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Movie",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer YOUR TOKEN",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://127.0.0.1:5000/delete-movie/ID_OF_THE_MOVIE_YOU_WANT_TO_DELETE",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"delete-movie",
+						"26"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search Movie",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/search-movie/THE_NAME_OF_THE_MOVIE_YOU_WANT_TO_LOOK_FOR",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"search-movie",
+						"Transporter"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Upcoming Movies",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/upcoming-movies",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"upcoming-movies"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all Movies",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://127.0.0.1:5000/browse-movies",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"browse-movies"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Purchase Ticket",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer YOUR TOKEN",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"movie_id\": MOVIE_ID_YOU_WANT_TO_PURCHASE_TICKET_FOR,\r\n"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/purchase-ticket",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"purchase-ticket"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User Tickets",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	]
+}

@@ -1,3 +1,6 @@
+from unittest.mock import patch
+
+from managers.auth import AuthManager
 from models import User
 from tests.base import TestRESTAPIBase
 
@@ -19,7 +22,8 @@ class TestRegistrationAndAuthorization(TestRESTAPIBase):
         assert response.json == {'message': {'first_name': ['Name must contain only alphabetic characters'],
                                              'last_name': ['Name must contain only alphabetic characters']}}
 
-    def test_registration_with_valid_data_expect_success(self):
+    @patch.object(AuthManager, "encode_token", return_value='123123123')
+    def test_registration_with_valid_data_expect_success(self, mock_encode_token):
         headers = {"Content-Type": "application/json"}
         data = {
             "username": "Arditi9",
@@ -31,8 +35,10 @@ class TestRegistrationAndAuthorization(TestRESTAPIBase):
         }
 
         response = self.client.post('/register', json=data, headers=headers)
-        assert response.status_code == 201
         user = User.query.all()
+        mock_encode_token.assert_called_once_with(user[0])
+        assert response.status_code == 201
+        assert response.json == {'token': '123123123'}
         assert len(user) == 1
 
     def test_registration_with_invalid_email_expect_raise(self):
@@ -76,7 +82,8 @@ class TestRegistrationAndAuthorization(TestRESTAPIBase):
         user = User.query.all()
         assert len(user) == 1
 
-    def test_login_with_valid_credentials_expect_success(self):
+    @patch.object(AuthManager, "encode_token", return_value='123123123')
+    def test_login_with_valid_credentials_expect_success(self, mock_encode_token):
         headers = {"Content-Type": "application/json"}
         data = {
 
@@ -88,12 +95,20 @@ class TestRegistrationAndAuthorization(TestRESTAPIBase):
             "stripe_account": ""
         }
         response = self.client.post('/register', json=data, headers=headers)
-        assert response.status_code == 201
+        user = User.query.all()[0]
 
-        user = {
+        mock_encode_token.assert_called_with(user)
+        assert response.status_code == 201
+        assert response.json == {'token': '123123123'}
+
+        data = {
             "username": "Arditi9",
             "password": "12356"
         }
+        user = User.query.all()[0]
 
-        response = self.client.post('/login', json=user, headers=headers)
+        response = self.client.post('/login', json=data, headers=headers)
+        mock_encode_token.assert_called_with(user)
+
         assert response.status_code == 200
+        assert response.json == {'token': '123123123'}
