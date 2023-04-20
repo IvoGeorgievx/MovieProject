@@ -36,4 +36,4 @@ class UserTickets(Resource):
     def get(self):
         user = auth.current_user()
         tickets = TicketManager.get_user_tickets(user)
-        return {"tickets": TicketSchemaOut(many=True).dump(tickets)}
+        return {"tickets": TicketSchemaOut(many=True).dump(tickets)}, 200
