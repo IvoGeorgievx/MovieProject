@@ -11,8 +11,8 @@ routes = (
     (TicketPurchase, '/purchase-ticket'),
     (UserTickets, '/my-tickets'),
     (UpdateMovie, '/update-movie/<int:pk>'),
-    (BrowseMovies, '/browse-movies'),
     (DeleteMovie, '/delete-movie/<int:pk>'),
+    (BrowseMovies, '/browse-movies'),
     (UpcomingMovies, '/upcoming-movies'),
     (SearchMovie, '/search-movie/<string:query>'),
 )
