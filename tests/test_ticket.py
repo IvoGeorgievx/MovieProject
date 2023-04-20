@@ -1,7 +1,7 @@
 from unittest.mock import patch
 
 from managers.hall import HallManager
-from models import UserRole, Transaction, Ticket
+from models import UserRole, Transaction, Ticket, User
 from services.stripe_service import StripeService
 from tests.base import TestRESTAPIBase, generate_token
 from tests.factories import UserFactory, normal_test_movie_data
@@ -30,12 +30,13 @@ class TestTicketSchemas(TestRESTAPIBase):
 
         response = self.client.post('/purchase-ticket', json=data, headers=headers)
         assert response.status_code == 201
+        user = User.query.all()[1]
         assert response.json == {'barcode': 'some string 1 2 3 4',
                                  'ticket': {'id': 1,
                                             'is_paid': True,
                                             'movie_id': 1,
                                             'ticket_price': 35.65,
-                                            'user_id': 1}}
+                                            'user_id': user.id}}
 
         transaction = Transaction.query.all()
         ticket = Ticket.query.all()[0]
