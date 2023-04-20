@@ -217,7 +217,7 @@
 			"response": []
 		},
 		{
-			"name": "Search Movie",
+			"name": "Browse Movies",
 			"request": {
 				"method": "GET",
 				"header": [],

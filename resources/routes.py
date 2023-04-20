@@ -15,5 +15,4 @@ routes = (
     (DeleteMovie, '/delete-movie/<int:pk>'),
     (UpcomingMovies, '/upcoming-movies'),
     (SearchMovie, '/search-movie/<string:query>'),
-
 )
