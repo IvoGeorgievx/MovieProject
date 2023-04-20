@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "a775f35c-d9a2-49ee-a79e-f349cd4e54f5",
-		"name": "Movies_Project",
+		"_postman_id": "7976264a-a9fa-4cc1-a88b-7c90d56e1045",
+		"name": "Movies_Project Copy",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "24908171"
 	},
@@ -165,7 +165,7 @@
 					"raw": "{\r\n    \"name\": \"UPDATED_MOVIE_NAME(WRITE THE FIELDS YOU WANT TO UPDATE BELOW, example 'rating': 9.7)\"\r\n}"
 				},
 				"url": {
-					"raw": "http://127.0.0.1:5000/update-movie/ID_OF_THE_MOVIE_YOU_WANT_TO_UPDATE",
+					"raw": "http://127.0.0.1:5000/update-movie/26",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -199,7 +199,7 @@
 					}
 				],
 				"url": {
-					"raw": "http://127.0.0.1:5000/delete-movie/ID_OF_THE_MOVIE_YOU_WANT_TO_DELETE",
+					"raw": "http://127.0.0.1:5000/delete-movie/26",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -222,7 +222,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://127.0.0.1:5000/search-movie/THE_NAME_OF_THE_MOVIE_YOU_WANT_TO_LOOK_FOR",
+					"raw": "http://127.0.0.1:5000/search-movie/Transporter",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -330,7 +330,10 @@
 			"name": "User Tickets",
 			"request": {
 				"method": "GET",
-				"header": []
+				"header": [],
+				"url": {
+					"raw": ""
+				}
 			},
 			"response": []
 		}
