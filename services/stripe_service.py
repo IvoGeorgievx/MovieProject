@@ -14,7 +14,7 @@ class StripeService:
         account = stripe.Customer.create(
             balance=StripeService.STARTING_BALANCE,
             name=f'{user["first_name"]} {user["last_name"]}',
-            email=user['email'],
+            email=user["email"],
         )
         return account.id
 
@@ -28,20 +28,21 @@ class StripeService:
         price = stripe.Price.create(
             unit_amount=int(ticket.ticket_price * StripeService.ST_TO_LEV),
             currency="bgn",
-            product="ticket"
+            product="ticket",
         )
         payment_intent = stripe.PaymentIntent.create(
             amount=price.unit_amount,
             currency=price.currency,
             customer=user.stripe_account,
-            payment_method="pm_card_visa"
+            payment_method="pm_card_visa",
         )
 
         payment_intent.confirm()
 
         stripe.Customer.modify(
             user.stripe_account,
-            balance=customer.balance - int(ticket.ticket_price * StripeService.ST_TO_LEV)
+            balance=customer.balance
+            - int(ticket.ticket_price * StripeService.ST_TO_LEV),
         )
 
         return payment_intent.id

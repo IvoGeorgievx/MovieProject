@@ -13,7 +13,9 @@ class ProductionConfig:
     DEBUG = False
     TESTING = False
     SQLALCHEMY_DATABASE_URI = (
-        f"postgresql://{config('DB_USER')}:{config('DB_PASSWORD')}" f"@localhost:{config('DB_PORT')}/{config('DB_NAME')}")
+        f"postgresql://{config('DB_USER')}:{config('DB_PASSWORD')}"
+        f"@localhost:{config('DB_PORT')}/{config('DB_NAME')}"
+    )
 
 
 class DevelopmentConfig:
@@ -21,13 +23,17 @@ class DevelopmentConfig:
     DEBUG = True
     TESTING = True
     SQLALCHEMY_DATABASE_URI = (
-        f"postgresql://{config('DB_USER')}:{config('DB_PASSWORD')}" f"@localhost:{config('DB_PORT')}/{config('DB_NAME')}")
+        f"postgresql://{config('DB_USER')}:{config('DB_PASSWORD')}"
+        f"@localhost:{config('DB_PORT')}/{config('DB_NAME')}"
+    )
 
 
 class TestingConfig:
     TESTING = True
     SQLALCHEMY_DATABASE_URI = (
-        f"postgresql://{config('DB_USER')}:{config('DB_PASSWORD')}" f"@localhost:{config('DB_PORT')}/{config('DB_TEST_NAME')}")
+        f"postgresql://{config('DB_USER')}:{config('DB_PASSWORD')}"
+        f"@localhost:{config('DB_PORT')}/{config('DB_TEST_NAME')}"
+    )
     DEBUG = True
 
 

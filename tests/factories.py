@@ -43,6 +43,7 @@ class UserFactory(BaseFactory):
 
 # Tried to implement MovieFactory, but it kept raising TypeErrors
 
+
 def normal_test_movie_data(hall):
     return {
         "name": "Test Movie",
@@ -51,5 +52,5 @@ def normal_test_movie_data(hall):
         "hall_id": hall.id,
         "ticket_price": 35.65,
         "start_time": "2023-04-17T21:31:00.000000",
-        "end_time": "2023-04-17T22:30:00.000000"
+        "end_time": "2023-04-17T22:30:00.000000",
     }

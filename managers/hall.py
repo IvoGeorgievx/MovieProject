@@ -5,7 +5,6 @@ from models import Hall, HallAvailability
 
 
 class HallManager:
-
     @staticmethod
     def create_hall(data):
         hall = Hall(**data)
@@ -20,18 +19,19 @@ class HallManager:
         current_movies = HallAvailability.query.filter(
             HallAvailability.start_time <= end_time,
             HallAvailability.end_time >= start_time,
-            HallAvailability.hall_id == hall_id
+            HallAvailability.hall_id == hall_id,
         ).all()
         if current_movies:
-            raise BadRequest("Hall is occupied during that time.Set another timeframe or choose other hall.")
+            raise BadRequest(
+                "Hall is occupied during that time.Set another timeframe or choose other hall."
+            )
 
     @staticmethod
     def set_hall_occupancy(start_time, end_time, movie_id, hall_id):
         hall = Hall.query.filter_by(id=hall_id).first()
-        occupancy = HallAvailability(start_time=start_time,
-                                     end_time=end_time,
-                                     movie_id=movie_id,
-                                     hall=hall)
+        occupancy = HallAvailability(
+            start_time=start_time, end_time=end_time, movie_id=movie_id, hall=hall
+        )
         db.session.add(occupancy)
         db.session.commit()
         return occupancy

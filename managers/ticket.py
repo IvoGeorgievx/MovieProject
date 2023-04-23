@@ -5,7 +5,6 @@ from models import Ticket, Movie, Hall
 
 
 class TicketManager:
-
     @staticmethod
     def create_ticket(data):
         ticket = Ticket(**data)
@@ -50,5 +49,3 @@ class TicketManager:
         db.session.add(movie)
         db.session.commit()
         return movie
-
-

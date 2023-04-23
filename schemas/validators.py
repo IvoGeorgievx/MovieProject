@@ -26,7 +26,7 @@ class UserValidator:
 
     @staticmethod
     def email_validator(value):
-        pattern = re.compile(r'^[a-zA-Z0-9_.]{3,}@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$')
+        pattern = re.compile(r"^[a-zA-Z0-9_.]{3,}@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$")
         match = pattern.search(value)
         if not match:
             raise ValidationError("Invalid email address")
@@ -38,7 +38,6 @@ class UserValidator:
 
 
 class MovieValidator:
-
     @staticmethod
     def ticket_price_validator(value):
         if value <= 0:

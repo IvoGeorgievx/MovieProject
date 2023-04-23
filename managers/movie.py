@@ -5,7 +5,6 @@ from models import Movie
 
 
 class MovieManager:
-
     @staticmethod
     def create_movie(data):
         movie = Movie(**data)
@@ -17,7 +16,7 @@ class MovieManager:
     def get_movie(pk):
         movie = Movie.query.filter_by(id=pk).first()
         if not movie:
-            raise NotFound('Movie not found')
+            raise NotFound("Movie not found")
         return movie
 
     @staticmethod
@@ -33,6 +32,3 @@ class MovieManager:
         movie = Movie.query.filter_by(id=movie_id).first()
         db.session.delete(movie)
         db.session.commit()
-
-
-

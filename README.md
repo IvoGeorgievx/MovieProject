@@ -4,7 +4,6 @@ This is a REST project for my Web Applications with Flask course.
 
 To use this API, follow these steps:
 
-
 #Usage
 
 1. Clone the repository to your local machine.
@@ -18,7 +17,7 @@ To use this API, follow these steps:
 Here is a list of the available endpoints:
 
 1. '/register': Registers a new user
-2. '/login': Login an existing user 
+2. '/login': Login an existing user
 3. '/create-hall': Create a hall for movies screening.
 4. '/create-movie': Admin creates a movie.
 5. '/purchase-ticket': User can purchase a ticket for a movie of his choice.
