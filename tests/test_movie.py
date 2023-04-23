@@ -202,7 +202,8 @@ class TestMovieSchema(TestRESTAPIBase):
     def test_delete_movie_expect_success(self):
         user = UserFactory(role=UserRole.admin)
         token = generate_token(user)
-        headers = {"Authorization": f"Bearer {token}"}
+        headers = {"Authorization": f"Bearer {token}",
+                   "Content-Type": "application/json"}
         first_hall = HallManager.create_hall({"capacity": 5})
         data = {
             "name": "Test Movie1",
@@ -214,7 +215,9 @@ class TestMovieSchema(TestRESTAPIBase):
             "end_time": "2023-04-17T22:30:00.000000"
         }
         self.client.post('/create-movie', json=data, headers=headers)
-        response = self.client.delete('/movie/1', headers=headers)
+        movie = Movie.query.all()
+        assert len(movie) == 1
+        response = self.client.delete('/movie/1', json={}, headers=headers)
         assert response.status_code == 204
         movie = Movie.query.all()
         assert len(movie) == 0
@@ -234,7 +237,7 @@ class TestMovieSchema(TestRESTAPIBase):
             "end_time": "2023-04-17T22:30:00.000000"
         }
         self.client.post('/create-movie', json=data, headers=headers)
-        response = self.client.delete('/movie/2', headers=headers)
+        response = self.client.delete('/movie/2', json={}, headers=headers)
         assert response.status_code == 404
         movie = Movie.query.all()
         assert len(movie) == 1
