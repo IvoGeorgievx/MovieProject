@@ -214,7 +214,7 @@ class TestMovieSchema(TestRESTAPIBase):
             "end_time": "2023-04-17T22:30:00.000000"
         }
         self.client.post('/create-movie', json=data, headers=headers)
-        response = self.client.delete('/delete-movie/1', headers=headers)
+        response = self.client.delete('/movie/1', headers=headers)
         assert response.status_code == 204
         movie = Movie.query.all()
         assert len(movie) == 0
@@ -234,7 +234,7 @@ class TestMovieSchema(TestRESTAPIBase):
             "end_time": "2023-04-17T22:30:00.000000"
         }
         self.client.post('/create-movie', json=data, headers=headers)
-        response = self.client.delete('/delete-movie/2', headers=headers)
+        response = self.client.delete('/movie/2', headers=headers)
         assert response.status_code == 404
         movie = Movie.query.all()
         assert len(movie) == 1
@@ -266,7 +266,7 @@ class TestMovieSchema(TestRESTAPIBase):
             "end_time": "2023-04-17T22:30:00.000000"
         }
 
-        response = self.client.put('/update-movie/1', json=data, headers=headers)
+        response = self.client.put('/movie/1', json=data, headers=headers)
         assert response.status_code == 400
         assert response.json == {'message': {'rating': ['Movie ratings must be between 0 and 10 inclusive'],
                                              'ticket_price': ['Ticket price must be higher than 0.']}}
@@ -297,7 +297,7 @@ class TestMovieSchema(TestRESTAPIBase):
             "start_time": "2023-04-17T21:31:00.000000",
             "end_time": "2023-04-17T22:30:00.000000"
         }
-        response = self.client.put('/update-movie/1', json=data, headers=headers)
+        response = self.client.put('/movie/1', json=data, headers=headers)
         assert response.status_code == 200
         assert response.json == {'description': 'one of the best movies',
                                  'end_time': '2023-04-17T22:30:00',

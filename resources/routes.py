@@ -7,7 +7,7 @@ routes = (
     (Register, '/register'),
     (Login, '/login'),
     (Hall, '/create-hall'),
-    (MovieResource, '/create-movie'),
+    (CreateMovie, '/create-movie'),
     (TicketPurchase, '/purchase-ticket'),
     (UserTickets, '/my-tickets'),
     (MovieResource, '/movie/<int:pk>'),

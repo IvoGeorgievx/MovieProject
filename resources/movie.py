@@ -44,6 +44,9 @@ class MovieResource(Resource):
         MovieManager.update_movie(movie.id, data)
         return MovieSchemaOut().dump(movie), 200
 
+    @auth.login_required
+    @permission_required(UserRole.admin)
+    @validate_schema(MovieUpdateSchemaIn)
     def delete(self, pk):
         movie = MovieManager.get_movie(pk)
         HallManager.remove_hall_occupancy(movie.id)

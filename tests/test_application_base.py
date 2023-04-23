@@ -11,8 +11,8 @@ class TestLoginAndPermissionRequired(TestRESTAPIBase):
             ('POST', '/create-movie'),
             ('POST', '/purchase-ticket'),
             ('GET', '/my-tickets'),
-            ('PUT', '/update-movie/7'),
-            ('DELETE', '/delete-movie/7')
+            ('PUT', '/movie/7'),
+            ('DELETE', '/movie/7')
         ]
 
         for method, url in all_guarded_urls:
@@ -31,7 +31,7 @@ class TestLoginAndPermissionRequired(TestRESTAPIBase):
     def test_permission_required(self):
         all_guarded_urls = [
             ('POST', '/create-movie'),
-            ('PUT', '/update-movie/7'),
+            ('PUT', '/movie/7'),
             ('POST', '/create-hall'),
         ]
 
