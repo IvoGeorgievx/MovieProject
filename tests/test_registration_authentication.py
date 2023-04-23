@@ -86,7 +86,6 @@ class TestRegistrationAndAuthorization(TestRESTAPIBase):
     def test_login_with_valid_credentials_expect_success(self, mock_encode_token):
         headers = {"Content-Type": "application/json"}
         data = {
-
             "username": "Arditi9",
             "password": "12356",
             "first_name": "Ivo",

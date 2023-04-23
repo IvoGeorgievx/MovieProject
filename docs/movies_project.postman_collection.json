@@ -165,7 +165,7 @@
 					"raw": "{\r\n    \"name\": \"UPDATED_MOVIE_NAME(WRITE THE FIELDS YOU WANT TO UPDATE BELOW, example 'rating': 9.7)\"\r\n}"
 				},
 				"url": {
-					"raw": "http://127.0.0.1:5000/update-movie/26",
+					"raw": "http://127.0.0.1:5000/movie/26",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -199,7 +199,7 @@
 					}
 				],
 				"url": {
-					"raw": "http://127.0.0.1:5000/delete-movie/26",
+					"raw": "http://127.0.0.1:5000/movie/26",
 					"protocol": "http",
 					"host": [
 						"127",

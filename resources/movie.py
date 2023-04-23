@@ -34,7 +34,7 @@ class SearchMovie(Resource):
         return TMDBSearchSchemaOut().dump(info), 200
 
 
-class UpdateMovie(Resource):
+class MovieResource(Resource):
     @auth.login_required
     @permission_required(UserRole.admin)
     @validate_schema(MovieUpdateSchemaIn)
@@ -44,16 +44,6 @@ class UpdateMovie(Resource):
         MovieManager.update_movie(movie.id, data)
         return MovieSchemaOut().dump(movie), 200
 
-
-class BrowseMovies(Resource):
-    def get(self):
-        movies = Movie.query.filter_by().all()
-        return MovieSchemaOut(many=True).dump(movies), 200
-
-
-class DeleteMovie(Resource):
-    @auth.login_required
-    @permission_required(UserRole.admin)
     def delete(self, pk):
         movie = MovieManager.get_movie(pk)
         HallManager.remove_hall_occupancy(movie.id)
@@ -61,11 +51,14 @@ class DeleteMovie(Resource):
         return None, 204
 
 
+class BrowseMovies(Resource):
+    def get(self):
+        movies = Movie.query.filter_by().all()
+        return MovieSchemaOut(many=True).dump(movies), 200
+
+
 class UpcomingMovies(Resource):
     def get(self):
         tmdb_service = TMDBService()
         result = tmdb_service.get_upcoming_movies()
         return TMDBUpcomingSchemaOut().dump(result), 200
-
-
-
