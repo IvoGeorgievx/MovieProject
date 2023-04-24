@@ -22,8 +22,7 @@ Here is a list of the available endpoints:
 4. '/create-movie': Admin creates a movie.
 5. '/purchase-ticket': User can purchase a ticket for a movie of his choice.
 6. '/my-tickets': User can see his ticket purchases.
-7. '/update-movie/<int:pk>': An admin can update existing movie.
+7. '/movie/<int:pk>': An admin can update or delete an existing movie depending on the method
 8. '/browse-movies': Gets all the movies in the database.
-9. '/delete-movie/<int:pk>': Admin deletes a movie.
-10. '/upcoming-movies': Connects to the Movie Database API, to get the upcoming movies.
-11. '/search-movie/<string:query>': Connects to the Movie Database API, to get movie information set by the query.
+9. '/upcoming-movies': Connects to the Movie Database API, to get the upcoming movies.
+10. '/search-movie/<string:query>': Connects to the Movie Database API, to get movie information set by the query.
