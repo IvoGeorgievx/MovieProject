@@ -1,7 +1,8 @@
 from unittest.mock import patch
 
 from managers.hall import HallManager
-from models import UserRole, Movie
+from models import UserRole, Movie, Ticket
+from services.stripe_service import StripeService
 from services.tmdb import TMDBService
 from tests.base import TestRESTAPIBase, generate_token
 from tests.factories import UserFactory
@@ -387,4 +388,41 @@ class TestMovieSchema(TestRESTAPIBase):
                     "overview": "test description",
                 }
             ]
+        }
+
+    @patch.object(StripeService, "purchase_ticket", return_value="123456")
+    def test_delete_movie_with_tickets_and_transactions_expect_success(
+        self, mock_purchase_ticket
+    ):
+        user = UserFactory(role=UserRole.admin)
+        token = generate_token(user)
+        headers = {"Authorization": f"Bearer {token}"}
+        hall = HallManager.create_hall({"capacity": 5})
+        data = {
+            "name": "Test Movie",
+            "rating": 5.0,
+            "description": "one of the best movies",
+            "hall_id": hall.id,
+            "ticket_price": 35.65,
+            "start_time": "2023-04-17T21:31:00.000000",
+            "end_time": "2023-04-17T22:30:00.000000",
+        }
+        response = self.client.post("/create-movie", json=data, headers=headers)
+        assert response.status_code == 201
+        movie = Movie.query.all()[0]
+        data = {"movie_id": movie.id}
+
+        response = self.client.post("/purchase-ticket", json=data, headers=headers)
+        ticket = Ticket.query.all()[0]
+        mock_purchase_ticket.assert_called_once_with(ticket, user)
+        assert response.status_code == 201
+        assert response.json == {
+            "barcode": "123456",
+            "ticket": {
+                "id": 1,
+                "is_paid": True,
+                "movie_id": 1,
+                "ticket_price": 35.65,
+                "user_id": user.id,
+            },
         }
