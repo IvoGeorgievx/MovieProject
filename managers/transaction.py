@@ -1,5 +1,5 @@
 from db import db
-from models import Transaction
+from models import Transaction, Ticket
 
 
 class TransactionManager:
@@ -11,3 +11,11 @@ class TransactionManager:
         db.session.add(transaction)
         db.session.commit()
         return transaction
+
+    @staticmethod
+    def remove_transactions(movie):
+        transactions = (
+            Transaction.query.join(Ticket).filter(Ticket.movie_id == movie.id).all()
+        )
+        for transaction in transactions:
+            db.session.delete(transaction)

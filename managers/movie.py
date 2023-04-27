@@ -1,6 +1,8 @@
 from werkzeug.exceptions import NotFound
 
 from db import db
+from managers.ticket import TicketManager
+from managers.transaction import TransactionManager
 from models import Movie
 
 
@@ -30,5 +32,7 @@ class MovieManager:
     @staticmethod
     def delete_movie(movie_id):
         movie = Movie.query.filter_by(id=movie_id).first()
+        TransactionManager.remove_transactions(movie)
+        TicketManager.remove_tickets(movie)
         db.session.delete(movie)
         db.session.commit()

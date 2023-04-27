@@ -49,3 +49,9 @@ class TicketManager:
         db.session.add(movie)
         db.session.commit()
         return movie
+
+    @staticmethod
+    def remove_tickets(movie):
+        tickets = Ticket.query.filter_by(movie_id=movie.id).all()
+        for ticket in tickets:
+            db.session.delete(ticket)
