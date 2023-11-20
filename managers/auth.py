@@ -15,7 +15,8 @@ class AuthManager:
     @staticmethod
     def register(data):
         data["password"] = generate_password_hash(data["password"], method="sha256")
-        if not data["stripe_account"]:
+        stripe_account = data.get("stripe_account")
+        if not stripe_account:
             data["stripe_account"] = StripeService.create_stripe_account(data)
         user = User(**data)
         db.session.add(user)

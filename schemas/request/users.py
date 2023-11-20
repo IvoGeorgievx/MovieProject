@@ -22,7 +22,7 @@ class UserRegisterSchemaIn(BaseUserSchema):
     first_name = fields.String(
         required=True,
         validate=validate.And(
-            validate.Length(min=3, max=20), UserValidator.name_validator
+            # validate.Length(min=3, max=20), UserValidator.name_validator
         ),
     )
     last_name = fields.String(
