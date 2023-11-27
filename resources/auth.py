@@ -22,4 +22,4 @@ class Login(Resource):
         data = request.get_json()
         user = AuthManager.login(data)
         token = AuthManager.encode_token(user)
-        return UserResponseSchema().dump({"token": token}), 200
+        return UserResponseSchema().dumps({"token": token, "user_id": user.id}), 200
