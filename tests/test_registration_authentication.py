@@ -106,7 +106,7 @@ class TestRegistrationAndAuthorization(TestRESTAPIBase):
 
         mock_encode_token.assert_called_with(user)
         assert response.status_code == 201
-        assert response.json == {"token": "123123123", "user_id": user.id}
+        assert response.json == {"token": "123123123"}
 
         data = {"username": "Arditi9", "password": "12356"}
         user = User.query.all()[0]
