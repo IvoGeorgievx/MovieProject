@@ -1,4 +1,4 @@
-from resources.auth import Register, Login
+from resources.auth import Register, Login, GetUser
 from resources.hall import Hall
 from resources.movie import (
     MovieResource,
@@ -12,6 +12,7 @@ from resources.ticket import TicketPurchase, UserTickets
 routes = (
     (Register, "/register"),
     (Login, "/login"),
+    (GetUser, "/get-user"),
     (Hall, "/create-hall"),
     (CreateMovie, "/create-movie"),
     (TicketPurchase, "/purchase-ticket"),

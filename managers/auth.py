@@ -33,6 +33,13 @@ class AuthManager:
         return user
 
     @staticmethod
+    def get_user(user_id):
+        user = User.query.filter_by(id=user_id['sub']).first()
+        if not user:
+            raise BadRequest('No such User')
+        return user
+
+    @staticmethod
     def encode_token(user):
         payload = {"sub": user.id, "exp": datetime.utcnow() + timedelta(days=15)}
         return jwt.encode(payload, key=config("JWT_SECRET_KEY"), algorithm="HS256")

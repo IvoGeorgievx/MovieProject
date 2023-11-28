@@ -23,3 +23,11 @@ class Login(Resource):
         user = AuthManager.login(data)
         token = AuthManager.encode_token(user)
         return UserResponseSchema().dump({"token": token}), 200
+
+
+class GetUser(Resource):
+    def post(self):
+        data = request.get_json()
+        user_id = AuthManager.decode_token(data)
+        user = AuthManager.get_user(user_id)
+        return UserResponseSchema().dump({"user": user})
